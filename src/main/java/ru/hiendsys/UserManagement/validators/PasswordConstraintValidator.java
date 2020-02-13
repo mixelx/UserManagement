@@ -18,24 +18,24 @@ import static java.util.Arrays.asList;
 
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
     @Override
-    public void initialize(ValidPassword constraintAnnotation) {
+    public void initialize(final ValidPassword constraintAnnotation) {
 
     }
 
     @Override
-    public boolean isValid(String password, ConstraintValidatorContext context) {
-        PasswordValidator validator = new PasswordValidator(asList(
+    public boolean isValid(final String password, final ConstraintValidatorContext context) {
+        final PasswordValidator validator = new PasswordValidator(asList(
                 new LengthRule(3, 16),
                 new CharacterRule(EnglishCharacterData.Alphabetical, 1),
                 new CharacterRule(EnglishCharacterData.Digit, 1),
                 new AllowedRegexRule("^[A-Za-z0-9]+$")
         ));
-        RuleResult result = validator.validate(new PasswordData(password));
+        final RuleResult result = validator.validate(new PasswordData(password));
         if (result.isValid()){
             return true;
         }
-        List<String> messages = validator.getMessages(result);
-        String message = join(",", messages);
+        final List<String> messages = validator.getMessages(result);
+        final String message = join(",", messages);
         context.buildConstraintViolationWithTemplate(message)
                 .addConstraintViolation()
                 .disableDefaultConstraintViolation();

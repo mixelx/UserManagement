@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header('Login')"></head>
+<body>
+<form th:action="@{/login}" method="POST" class="form-signin">
+    <div class="login">
+        <div class="login-screen">
+            <div class="app-title">
+                <h1>Login</h1>
+            </div>
+
+            <div class="login-form">
+                <div class="control-group">
+                    <input name="username" type="text" class="login-field" placeholder="Username" id="login-name" required/>
+                    <label class="login-field-icon fui-user" for="login-name"></label>
+                </div>
+
+                <div class="control-group">
+                    <input name="password" type="password" class="lofin-field" id="login-pass" placeholder="Password" required/>
+                    <label class="login-field-icon fui-lock" for="login-pass"></label>
+                </div>
+                <span class="has-error" th:text="${error}"></span>
+
+                <button class="btnlog btn-primary btn-large btn-block" type="submit">login</button>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>
