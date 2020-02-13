@@ -65,7 +65,7 @@ input:focus {
     margin: 0 auto;
 }
 
-.btn:hover {
+.button:hover {
     background-color: #2980B9;
 }
 
@@ -75,7 +75,36 @@ input:focus {
     display: block;
     margin-top: 12px;
 }
+
 .has-error {
     font-size: 12px;
     color: red;
+}
+
+.right {
+    direction: rtl;
+}
+
+.mb-100 {
+    margin-bottom: 100px;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.jc {
+    justify-content: center;
+}
+
+.jl {
+    justify-content: left;
+}
+
+.tc {
+    text-align: center;
 }

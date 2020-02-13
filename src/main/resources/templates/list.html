@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header('Users list')"></head>
+<head th:replace="fragments/header :: header('Main')"></head>
 <body>
-list
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="row">
+    <button class="btn btn-primary right" onclick="createNewUser()">Add new user account</button>
+</div>
 </body>
 </html>

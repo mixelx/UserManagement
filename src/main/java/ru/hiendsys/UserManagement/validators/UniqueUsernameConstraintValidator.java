@@ -1,7 +1,8 @@
 package ru.hiendsys.UserManagement.validators;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.hiendsys.UserManagement.repositories.UserAccountRepository;
+import org.springframework.context.ApplicationContext;
+import ru.hiendsys.UserManagement.services.UserAccountService;
 import ru.hiendsys.UserManagement.validators.annotations.UniqueUsername;
 
 import javax.validation.ConstraintValidator;
@@ -10,11 +11,13 @@ import javax.validation.ConstraintValidatorContext;
 public class UniqueUsernameConstraintValidator implements ConstraintValidator<UniqueUsername, String> {
 
     @Autowired
-    private UserAccountRepository userAccountRepository;
+    private UserAccountService userAccountService;
+    @Autowired
+    private ApplicationContext context;
 
     @Override
     public boolean isValid(String username, ConstraintValidatorContext context) {
-        return userAccountRepository.findByUsername(username) == null;
+        return userAccountService.findByUsername(username) == null;
     }
 
     @Override

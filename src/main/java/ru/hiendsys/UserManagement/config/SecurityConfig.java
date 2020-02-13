@@ -14,17 +14,13 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import ru.hiendsys.UserManagement.services.UserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserService userService;
     @Autowired
     @Qualifier("userDetailsServiceImpl")
     private UserDetailsService userDetailsService;
@@ -40,23 +36,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/css/*", "/js/*").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .formLogin()
+
+                .and().formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/list")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .permitAll()
+
+                .and().logout()
                 .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+
         http.sessionManagement()
-                .maximumSessions(1)
+                .maximumSessions(2)
                 .maxSessionsPreventsLogin(true)
-                .expiredUrl("/")
+                .expiredUrl("/loginPage")
                 .sessionRegistry(sessionRegistry());
     }
 

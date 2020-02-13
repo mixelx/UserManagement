@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header('Create new user')"></head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<form th:action="@{/user/new}" method="post" th:object="${userAccount}" class="form-group jc">
+    <h2 class="mt-40 tc">Create new user account</h2>
+    <div class="row jc">
+        <div class="col-md-3 mt-10">
+            <input name="username" placeholder="Username" th:field="*{username}" class="form-control jl"
+                   th:value="${userAccount.username}">
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+        </div>
+        <div class="col-md-3 mt-10">
+            <input name="password" placeholder="Password" class="form-control jl" th:value="${userAccount.password}">
+            <ul class="text-danger" th:each="error: ${#fields.errors('password')}">
+                <li th:each="message : ${error.split(',')}">
+                    <p class="error-message" th:text="${message}"></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row jc">
+        <div class="col-md-3 mt-10">
+            <input name="firstName" placeholder="First name" class="form-control jl"
+                   th:value="${userAccount.firstName}">
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+        </div>
+        <div class="col-md-3 mt-10">
+            <input name="lastName" placeholder="Last name" class="form-control jl" th:value="${userAccount.lastName}">
+            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+        </div>
+    </div>
+
+    <div class="row jc">
+        <div class="col-md-3 mt-10">
+            <select name="role" class="form-control" th:value="${userAccount.roles}">
+                <option>User</option>
+                <option>Admin</option>
+            </select>
+        </div>
+        <div class="col-md-3 mt-10">
+            <select name="status" class="form-control" th:value="${userAccount.status}">
+                <option th:each="status : ${T(ru.hiendsys.UserManagement.enums.UserStatus).values()}"
+                        th:value="${status}"
+                        th:text="${status}">
+                </option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btnlog btn-large btn-primary btn-block"> CREATE</button>
+</form>
+</body>
+</html>
