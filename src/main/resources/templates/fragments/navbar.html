@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en-US">
+<html xmlns:th="http://www.thymeleaf.org">
 <nav th:fragment="navbar" class="navbar mb-5 fixed-top navbar-expand-lg navbar-dark scrolling-navbar"
      style="background-color: rgb(118, 205, 216)">
     <div class="container-fluid">
@@ -10,10 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/list">Main</a>
-                </li>
-                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item active">
-                    <a class="nav-link" href="/adminPanel">Admin panel</a>
+                    <a class="nav-link" href="/user">Main</a>
                 </li>
             </ul>
             <ul class="navbar-nav right">

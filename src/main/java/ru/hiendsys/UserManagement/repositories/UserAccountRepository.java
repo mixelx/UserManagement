@@ -1,6 +1,8 @@
 package ru.hiendsys.UserManagement.repositories;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.hiendsys.UserManagement.entities.UserAccount;
@@ -17,4 +19,11 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
      */
     UserAccount findByUsername(String username);
 
+    /**
+     * Return page of user accounts.
+     *
+     * @param pageable pageble.
+     * @return user accounts page.
+     */
+    Page<UserAccount> findAll(Pageable pageable);
 }

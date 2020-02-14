@@ -101,8 +101,8 @@ input:focus {
     justify-content: center;
 }
 
-.jl {
-    justify-content: left;
+.tl {
+    text-align: left;
 }
 
 .tc {

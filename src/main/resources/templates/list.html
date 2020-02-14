@@ -3,8 +3,12 @@
 <head th:replace="fragments/header :: header('Main')"></head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
-<div class="row">
-    <button class="btn btn-primary right" onclick="createNewUser()">Add new user account</button>
+<div class="row right">
+    <button class="btn btn-primary mt-10" onclick="createNewUser()">Add new user account</button>
 </div>
+<div th:each="user : ${pages.content}">
+    <span th:text="${user.username}"></span>
+</div>
+<nav th:replace="fragments/pager :: pager"></nav>
 </body>
 </html>
