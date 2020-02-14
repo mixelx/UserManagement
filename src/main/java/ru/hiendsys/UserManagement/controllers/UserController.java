@@ -40,7 +40,7 @@ public class UserController {
             return "createPage";
         }
         userAccountService.saveUserAccount(userAccount);
-        return "list";
+        return "redirect:/user";
     }
 
     @GetMapping
