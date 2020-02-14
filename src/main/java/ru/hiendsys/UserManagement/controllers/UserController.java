@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.hiendsys.UserManagement.entities.UserAccount;
+import ru.hiendsys.UserManagement.entities.dto.UserAccountDto;
 import ru.hiendsys.UserManagement.services.UserAccountService;
+import ru.hiendsys.UserManagement.validators.UniqueUsernameValidator;
 
 import javax.validation.Valid;
 
@@ -19,16 +21,19 @@ public class UserController {
 
     @Autowired
     private UserAccountService userAccountService;
+    @Autowired
+    private UniqueUsernameValidator usernameValidator;
 
     @GetMapping("/new")
     public String getCreateUserAccountPage(final Model model) {
-        model.addAttribute("userAccount", new UserAccount());
+        model.addAttribute("userAccountDto", new UserAccountDto());
         return "createPage";
     }
 
     @PostMapping("/new")
-    public String createUserAccount(@Valid @ModelAttribute("userAccount") UserAccount userAccount,
+    public String createUserAccount(@Valid @ModelAttribute("userAccount") UserAccountDto userAccount,
                                     BindingResult bindingResult) {
+        usernameValidator.validate(userAccount, bindingResult);
         if (bindingResult.hasErrors()) {
             return "createPage";
         }

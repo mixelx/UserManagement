@@ -5,14 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.hiendsys.UserManagement.enums.Role;
 import ru.hiendsys.UserManagement.enums.UserStatus;
-import ru.hiendsys.UserManagement.validators.annotations.UniqueUsername;
-import ru.hiendsys.UserManagement.validators.annotations.ValidPassword;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -21,17 +20,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.IDENTITY;
+import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
 import static ru.hiendsys.UserManagement.enums.UserStatus.ACTIVE;
-import static ru.hiendsys.UserManagement.validators.validationUtils.ValidationMessages.ONLY_LATIN_CHARACTERS_FIRST_NAME_MESSAGE;
-import static ru.hiendsys.UserManagement.validators.validationUtils.ValidationMessages.ONLY_LATIN_CHARACTERS_LAST_NAME_MESSAGE;
-import static ru.hiendsys.UserManagement.validators.validationUtils.ValidationMessages.ONLY_LATIN_CHARACTERS_USERNAME_MESSAGE;
-import static ru.hiendsys.UserManagement.validators.validationUtils.ValidationRegexes.ONLY_LATIN_CHARACTERS;
 
 @Entity
 @Data
@@ -42,27 +38,22 @@ import static ru.hiendsys.UserManagement.validators.validationUtils.ValidationRe
 public class UserAccount implements UserDetails {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Pattern(regexp = ONLY_LATIN_CHARACTERS, message = ONLY_LATIN_CHARACTERS_USERNAME_MESSAGE)
-    @Column(unique = true)
-    @UniqueUsername
     private String username;
 
-    @ValidPassword
     private String password;
 
-    @Pattern(regexp = ONLY_LATIN_CHARACTERS, message = ONLY_LATIN_CHARACTERS_FIRST_NAME_MESSAGE)
     private String firstName;
 
-    @Pattern(regexp = ONLY_LATIN_CHARACTERS, message = ONLY_LATIN_CHARACTERS_LAST_NAME_MESSAGE)
     private String lastName;
 
     private UserStatus status;
 
     @CreatedDate
-    private Date dateCreated;
+    @DateTimeFormat(iso = DATE_TIME)
+    private LocalDateTime dateCreated;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))

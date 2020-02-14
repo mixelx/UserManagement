@@ -1,4 +1,4 @@
-package ru.hiendsys.UserManagement.entities;
+package ru.hiendsys.UserManagement.enums;
 
 import org.springframework.security.core.GrantedAuthority;
 
