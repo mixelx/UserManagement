@@ -3,6 +3,6 @@
 <head th:replace="fragments/header :: header('Create new user')"></head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
-<form th:replace="fragments/createForm :: createForm('/user/new')"></form>
+<form th:replace="fragments/createForm :: createForm('/user/' + ${user.id} + '/edit')"></form>
 </body>
 </html>

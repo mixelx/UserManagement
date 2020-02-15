@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/header :: header(${user.username})"></head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<h1 class="display-4 mt-10" th:text="${user.username}"></h1>
+<hr>
+<p>First name: [[${user.firstName}]]</p>
+<p>Last name: [[${user.lastName}]]</p>
+<p>Role: [[${user.role}]]</p>
+<p id="status">Status: [[${user.status}]]</p>
+</body>
+<button th:if="${#authorization.expression('hasAuthority(''ADMIN'')') || user.username.equals(#authentication.getName())}"
+        type="button" th:onclick="|showEditPage(${user.id})|" class="btn btn-success">Edit
+</button>
+<button sec:authorize="hasAuthority('ADMIN')" type="button" th:onclick="|changeUserStatus(${user.id})|"
+        class="btn btn-danger" id="blockBtn" th:text="${user.status.name() == 'ACTIVE' ? 'Block' : 'Unblock'}"></button>
+</html>

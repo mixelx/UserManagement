@@ -15,7 +15,6 @@ import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,8 +24,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import static javax.persistence.EnumType.STRING;
-import static javax.persistence.GenerationType.IDENTITY;
-import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
+import static javax.persistence.FetchType.EAGER;
 import static ru.hiendsys.UserManagement.enums.UserStatus.ACTIVE;
 
 @Entity
@@ -38,7 +36,7 @@ import static ru.hiendsys.UserManagement.enums.UserStatus.ACTIVE;
 public class UserAccount implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue()
     private Long id;
 
     private String username;
@@ -49,13 +47,14 @@ public class UserAccount implements UserDetails {
 
     private String lastName;
 
+    @Enumerated(STRING)
     private UserStatus status;
 
     @CreatedDate
-    @DateTimeFormat(iso = DATE_TIME)
+    @DateTimeFormat
     private LocalDateTime dateCreated;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Role.class, fetch = EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(STRING)
     private Set<Role> roles;
@@ -77,12 +76,12 @@ public class UserAccount implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isEnabled();
+        return true;
     }
 
     @Override

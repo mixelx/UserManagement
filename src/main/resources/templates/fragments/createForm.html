@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<form th:fragment="createForm(url)" th:action="@{${url}}" method="post" th:object="${user}" class="form-group jc">
+    <h2 class="mt-40 tc" th:if="${#strings.contains(url,'new')}">Create new user account</h2>
+    <h2 class="mt-40 tc" th:if="${#strings.contains(url,'edit')}">[[Edit ${user.username}'s profile]]</h2>
+    <div class="row jc">
+        <div class="col-md-3 mt-10">
+            <input name="username" placeholder="Username" th:field="*{username}" class="form-control tl"
+                   th:value="${user.username}">
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+        </div>
+        <div class="col-md-3 mt-10">
+            <input name="password" placeholder="Password" class="form-control tl" th:value="${user.password}">
+            <ul class="text-danger" th:each="error: ${#fields.errors('password')}">
+                <li th:each="message : ${error.split(',')}">
+                    <p class="error-message" th:text="${message}"></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row jc">
+        <div class="col-md-3 mt-10">
+            <input name="firstName" placeholder="First name" class="form-control tl"
+                   th:value="${user.firstName}">
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+        </div>
+        <div class="col-md-3 mt-10">
+            <input name="lastName" placeholder="Last name" class="form-control tl" th:value="${user.lastName}">
+            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+        </div>
+    </div>
+
+    <div class="row jc">
+        <div class="col-md-3 mt-10">
+            <select name="role" class="form-control">
+                <option th:each="role : ${T(ru.hiendsys.UserManagement.enums.Role).values()}"
+                        th:value="${role}"
+                        th:text="${role}"
+                        th:selected="${role == user.role}">
+                </option>
+            </select>
+        </div>
+        <div class="col-md-3 mt-10">
+            <select name="status" class="form-control" th:value="${user.status}">
+                <option th:each="status : ${T(ru.hiendsys.UserManagement.enums.UserStatus).values()}"
+                        th:value="${status}"
+                        th:text="${status}">
+                </option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btnlog btn-large btn-primary btn-block mt-10">SUBMIT</button>
+</form>
+</html>

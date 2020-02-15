@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import ru.hiendsys.UserManagement.entities.UserAccount;
 import ru.hiendsys.UserManagement.entities.dto.UserAccountDto;
+import ru.hiendsys.UserManagement.enums.UserStatus;
 
 public interface UserAccountService {
 
@@ -15,4 +16,10 @@ public interface UserAccountService {
     Page<UserAccount> getAllAccountsPage(Pageable pageable);
 
     void addPageableAttributes(Model model, Pageable pageable);
+
+    UserAccountDto getUserAccountDtoById(Long id);
+
+    UserStatus switchUserStatus(Long userId);
+
+    UserAccount getUserAccountById(Long id);
 }
