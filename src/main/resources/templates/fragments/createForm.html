@@ -2,14 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <form th:fragment="createForm(url)" th:action="@{${url}}" method="post" th:object="${user}" class="form-group jc">
     <h2 class="mt-40 tc" th:if="${#strings.contains(url,'new')}">Create new user account</h2>
-    <h2 class="mt-40 tc" th:if="${#strings.contains(url,'edit')}">[[Edit ${user.username}'s profile]]</h2>
+    <h2 class="mt-40 tc" th:if="${#strings.contains(url,'edit')}">Edit [[${user.username}]]'s profile</h2>
     <div class="row jc">
+        <input hidden="hidden" th:if="${user.id != null}" th:value="${user.id}" name="id">
         <div class="col-md-3 mt-10">
             <input name="username" placeholder="Username" th:field="*{username}" class="form-control tl"
                    th:value="${user.username}">
-            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+            <span th:if="${#fields.hasErrors('username')}" class="has-error" th:errors="*{username}"></span>
         </div>
-        <div class="col-md-3 mt-10">
+        <div th:if="${#strings.contains(url, 'new')}" class="col-md-3 mt-10">
             <input name="password" placeholder="Password" class="form-control tl" th:value="${user.password}">
             <ul class="text-danger" th:each="error: ${#fields.errors('password')}">
                 <li th:each="message : ${error.split(',')}">
@@ -23,11 +24,11 @@
         <div class="col-md-3 mt-10">
             <input name="firstName" placeholder="First name" class="form-control tl"
                    th:value="${user.firstName}">
-            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+            <span th:if="${#fields.hasErrors('firstName')}" class="has-error" th:errors="*{firstName}"></span>
         </div>
         <div class="col-md-3 mt-10">
             <input name="lastName" placeholder="Last name" class="form-control tl" th:value="${user.lastName}">
-            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            <span th:if="${#fields.hasErrors('lastName')}" class="has-error" th:errors="*{lastName}"></span>
         </div>
     </div>
 
@@ -45,7 +46,8 @@
             <select name="status" class="form-control" th:value="${user.status}">
                 <option th:each="status : ${T(ru.hiendsys.UserManagement.enums.UserStatus).values()}"
                         th:value="${status}"
-                        th:text="${status}">
+                        th:text="${status}"
+                        th:selected="${user.status == status}">
                 </option>
             </select>
         </div>

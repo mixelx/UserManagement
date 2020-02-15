@@ -26,8 +26,8 @@ public class UserAccountMapper {
                 .build();
     }
 
-    public UserAccountDto convertEntityToDtoForViewPage(final UserAccount userAccount) {
-        return UserAccountDto.builder()
+    public BaseUserAccountDto convertEntityToDtoForViewPage(final UserAccount userAccount) {
+        return BaseUserAccountDto.builder()
                 .id(userAccount.getId())
                 .username(userAccount.getUsername())
                 .firstName(userAccount.getFirstName())

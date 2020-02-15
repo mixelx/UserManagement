@@ -7,16 +7,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import ru.hiendsys.UserManagement.entities.UserAccount;
+import ru.hiendsys.UserManagement.entities.dto.BaseUserAccountDto;
 import ru.hiendsys.UserManagement.entities.dto.UserAccountDto;
 import ru.hiendsys.UserManagement.entities.dto.UserAccountMapper;
 import ru.hiendsys.UserManagement.enums.UserStatus;
 import ru.hiendsys.UserManagement.repositories.UserAccountRepository;
 import ru.hiendsys.UserManagement.services.UserAccountService;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static java.util.Collections.singletonList;
 import static ru.hiendsys.UserManagement.enums.UserStatus.ACTIVE;
 import static ru.hiendsys.UserManagement.enums.UserStatus.INACTIVE;
 
@@ -60,7 +63,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    public UserAccountDto getUserAccountDtoById(final Long id) {
+    public BaseUserAccountDto getUserAccountDtoById(final Long id) {
         return userAccountMapper.convertEntityToDtoForViewPage(userAccountRepository.getOne(id));
     }
 
@@ -73,7 +76,13 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    public UserAccount getUserAccountById(final Long id) {
-        return userAccountRepository.getOne(id);
+    public void editUserAccount(Long userId, BaseUserAccountDto userAccount) {
+        final UserAccount user = userAccountRepository.getOne(userId);
+        user.setUsername(userAccount.getUsername());
+        user.setFirstName(userAccount.getFirstName());
+        user.setLastName(userAccount.getLastName());
+        user.setStatus(userAccount.getStatus());
+        user.setRoles(new HashSet<>(singletonList(userAccount.getRole())));
+        userAccountRepository.save(user);
     }
 }

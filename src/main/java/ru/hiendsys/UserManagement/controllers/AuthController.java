@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AuthController {
+
     @GetMapping("/login")
-    public String login(Model model, String error, String logout) {
+    public String login(final Model model, final String error, final String logout) {
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
 
@@ -15,5 +16,10 @@ public class AuthController {
             model.addAttribute("message", "You have been logged out successfully.");
 
         return "login";
+    }
+
+    @GetMapping("/")
+    public String redirectToUsersListPage() {
+        return "redirect:/user";
     }
 }

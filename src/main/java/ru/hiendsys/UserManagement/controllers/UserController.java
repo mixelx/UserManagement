@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ru.hiendsys.UserManagement.entities.dto.BaseUserAccountDto;
 import ru.hiendsys.UserManagement.entities.dto.UserAccountDto;
 import ru.hiendsys.UserManagement.enums.UserStatus;
 import ru.hiendsys.UserManagement.services.UserAccountService;
@@ -36,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public String createUserAccount(@Valid @ModelAttribute("userAccount") final UserAccountDto userAccount,
+    public String createUserAccount(@Valid @ModelAttribute("user") final UserAccountDto userAccount,
                                     final BindingResult bindingResult) {
         usernameValidator.validate(userAccount, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -67,7 +68,19 @@ public class UserController {
 
     @GetMapping("{userId}/edit")
     public String getEditPage(@PathVariable final Long userId, final Model model) {
-        model.addAttribute("user", userAccountService.getUserAccountById(userId));
+        model.addAttribute("user", userAccountService.getUserAccountDtoById(userId));
         return "editPage";
+    }
+
+    @PostMapping("{userId}/edit")
+    public String editUserAccount(@Valid @ModelAttribute("userAccount") final BaseUserAccountDto userAccount,
+                                  @PathVariable final Long userId,
+                                  final BindingResult bindingResult) {
+        usernameValidator.validate(userAccount, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "editPage";
+        }
+        userAccountService.editUserAccount(userId, userAccount);
+        return "redirect:/user";
     }
 }
