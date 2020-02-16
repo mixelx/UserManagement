@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<nav th:fragment="pager" aria-label="...">
-    <ul th:if="${pages.totalPages > 0}"  class="pagination">
-        <li th:each="pageNumber : ${pageNumbers}" class="page-item"><a class="page-link" th:href="@{/user(size=${pages.size}, page=${pageNumber -1})}">[[${pageNumber}]]</a></li>
+<nav th:fragment="pager" aria-label="..." class="mt-40">
+    <ul th:if="${pages.totalPages > 0}" class="pagination">
+        <li th:each="pageNumber : ${pageNumbers}" class="page-item"><a class="page-link"
+                                                                       th:href="@{/user(size=${pages.size}, page=${pageNumber -1})}">[[${pageNumber}]]</a>
+        </li>
     </ul>
 </nav>
 </body>

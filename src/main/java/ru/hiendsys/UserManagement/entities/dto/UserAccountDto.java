@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.hiendsys.UserManagement.validators.annotations.ValidPassword;
 
+/**
+ * Dto with password used for creating user accounts.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

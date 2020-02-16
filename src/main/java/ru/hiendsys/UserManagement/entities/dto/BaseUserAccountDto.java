@@ -15,6 +15,9 @@ import static ru.hiendsys.UserManagement.validators.validationUtils.ValidationMe
 import static ru.hiendsys.UserManagement.validators.validationUtils.ValidationMessages.ONLY_LATIN_CHARACTERS_USERNAME_MESSAGE;
 import static ru.hiendsys.UserManagement.validators.validationUtils.ValidationRegexes.ONLY_LATIN_CHARACTERS;
 
+/**
+ * Base dto with fields which can be edited.
+ */
 @Getter
 @Setter
 @Builder

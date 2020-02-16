@@ -17,9 +17,9 @@ import static java.lang.String.join;
 import static java.util.Arrays.asList;
 
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
+
     @Override
     public void initialize(final ValidPassword constraintAnnotation) {
-
     }
 
     @Override

@@ -1,14 +1,15 @@
 package ru.hiendsys.UserManagement.repositories;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.hiendsys.UserManagement.entities.UserAccount;
 
+/**
+ * Repository for storing user accounts.
+ */
 @Repository
-@Scope(value = "prototype")
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
 
     /**

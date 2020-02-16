@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/header :: header('Main')"></head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="row right  mt-30">
-    <button class="btn btn-primary" onclick="createNewUser()">Add new user account</button>
+    <button class="btn btn-primary" onclick="createNewUser()" sec:authorize="hasAuthority('ADMIN')">Add new user
+        account
+    </button>
 </div>
 <div class="row jc">
     <div class="card col-md-3 mt-5 mr-5" style="width: 18rem" th:each="user : ${pages.content}">
@@ -14,10 +17,13 @@
             <p class="card-text" th:text="${'Id: ' + user.id}"></p>
             <p class="card-text" th:text="${'Date created: ' + user.dateCreated}"></p>
             <a th:href="@{'user/' + ${user.id}}" class="card-link">View</a>
-            <a th:href="@{'user/' + ${user.id} + '/edit'}" class="card-link">Edit</a>
+            <a th:href="@{'user/' + ${user.id} + '/edit'}" sec:authorize="hasAuthority('ADMIN')"
+               class="card-link">Edit</a>
         </div>
     </div>
 </div>
-<nav th:replace="fragments/pager :: pager"></nav>
+<div class="row jc">
+    <nav th:replace="fragments/pager :: pager"></nav>
+</div>
 </body>
 </html>

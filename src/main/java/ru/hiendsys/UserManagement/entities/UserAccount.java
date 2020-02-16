@@ -27,6 +27,9 @@ import static javax.persistence.EnumType.STRING;
 import static javax.persistence.FetchType.EAGER;
 import static ru.hiendsys.UserManagement.enums.UserStatus.ACTIVE;
 
+/**
+ * User account entity.
+ */
 @Entity
 @Data
 @Builder
@@ -36,7 +39,7 @@ import static ru.hiendsys.UserManagement.enums.UserStatus.ACTIVE;
 public class UserAccount implements UserDetails {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue
     private Long id;
 
     private String username;

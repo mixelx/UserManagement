@@ -10,6 +10,9 @@ import static java.util.Collections.singletonList;
 import static ru.hiendsys.UserManagement.enums.Role.ADMIN;
 import static ru.hiendsys.UserManagement.enums.Role.USER;
 
+/**
+ * Mapper for User Account DTOs.
+ */
 @Component
 public class UserAccountMapper {
 

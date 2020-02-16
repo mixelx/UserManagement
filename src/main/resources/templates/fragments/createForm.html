@@ -11,7 +11,7 @@
             <span th:if="${#fields.hasErrors('username')}" class="has-error" th:errors="*{username}"></span>
         </div>
         <div th:if="${#strings.contains(url, 'new')}" class="col-md-3 mt-10">
-            <input name="password" placeholder="Password" class="form-control tl" th:value="${user.password}">
+            <input name="password" placeholder="Password" class="form-control tl" th:value="${user.password}" required>
             <ul class="text-danger" th:each="error: ${#fields.errors('password')}">
                 <li th:each="message : ${error.split(',')}">
                     <p class="error-message" th:text="${message}"></p>
@@ -22,19 +22,19 @@
 
     <div class="row jc">
         <div class="col-md-3 mt-10">
-            <input name="firstName" placeholder="First name" class="form-control tl"
+            <input name="firstName" placeholder="First name" class="form-control tl" required
                    th:value="${user.firstName}">
             <span th:if="${#fields.hasErrors('firstName')}" class="has-error" th:errors="*{firstName}"></span>
         </div>
         <div class="col-md-3 mt-10">
-            <input name="lastName" placeholder="Last name" class="form-control tl" th:value="${user.lastName}">
+            <input name="lastName" placeholder="Last name" class="form-control tl" th:value="${user.lastName}" required>
             <span th:if="${#fields.hasErrors('lastName')}" class="has-error" th:errors="*{lastName}"></span>
         </div>
     </div>
 
     <div class="row jc">
         <div class="col-md-3 mt-10">
-            <select name="role" class="form-control">
+            <select name="role" class="form-control" required>
                 <option th:each="role : ${T(ru.hiendsys.UserManagement.enums.Role).values()}"
                         th:value="${role}"
                         th:text="${role}"
@@ -43,7 +43,7 @@
             </select>
         </div>
         <div class="col-md-3 mt-10">
-            <select name="status" class="form-control" th:value="${user.status}">
+            <select name="status" class="form-control" th:value="${user.status}" required>
                 <option th:each="status : ${T(ru.hiendsys.UserManagement.enums.UserStatus).values()}"
                         th:value="${status}"
                         th:text="${status}"
